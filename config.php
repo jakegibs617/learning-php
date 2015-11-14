@@ -88,6 +88,9 @@ $descriptions['Zaphod'] = 'President';
 
 //include simply includes a snippet from another external file
   include './paragraph.html';
+  
+  //below use var_dump to find out what is contained in a variable
+  var_dump($descriptions);
   ?>
   </p>
  </body>
