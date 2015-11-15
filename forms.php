@@ -4,8 +4,12 @@ $missing = array();
 if (isset($_POST['send'])) {
 	$to = 'email@example.com';
 	$subject = 'Feedback from contact form';
-	$expected = array('name', 'email', 'comments', 'gender');
-	$required = array('name', 'email', 'comments', 'gender');
+	$expected = array('name', 'email', 'comments', 'gender', 'terms');
+	$required = array('name', 'email', 'comments', 'gender', 'terms');
+	if (!isset($_POST['terms'])) {
+		$_POST['terms'] = '';
+		$errors['terms'] = true;
+	}
 	if (!isset($_POST['gender'])) {
 		$_POST['gender'] = '';
 	}
@@ -108,6 +112,20 @@ if (isset($_POST['send'])) {
         >
        <label for="gender_0">Rather not say</label>
     </p></fieldset>
+    <p>
+      <input type="checkbox" name="terms" id="terms" value="Agreed"
+      <?php 
+      	if ($_POST && $terms) {
+      		echo 'checked';
+      	}
+       ?>
+       >
+      <label for="terms">I agree to the terms and conditions
+	  <?php  if ($_POST && isset ($errors['terms'])) { ?>
+	  	<span class="warning">Please agree to the terms and conditions</span>
+  	  <?php }?>
+      </label>
+    </p>
     <p>
         <input type="submit" name="send" id="send" value="Send Comments">
     </p>
