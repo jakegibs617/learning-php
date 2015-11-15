@@ -9,7 +9,15 @@ if (isset($_POST['send'])) {
 	$headers = "From: webmaster@example.com\r\n";
 	$headers = "Contnet-type: text/plain; charset-utf-8";
 
+//check with hosting platform to see if this line below is needed
+	// $authenticate = '-femail@email.com';
+	// otherwise you can just do :
+	$authenticate = null;
 	require './mailprocess.php';
+	if ($mailSent) {
+		header('Location: thanks.php');
+		exit;
+	}
 }
 ?>
 <!doctype html>
@@ -22,7 +30,8 @@ if (isset($_POST['send'])) {
 
 <body>
     <h1>Contact Us</h1>
-    <?php if ($_POST && $suspect) {?>
+    
+    <?php if ($_POST && $suspect) || ($_POST && isset($errors['mailfail'])) {?>
 	    <p class="warning">Sorry, your mail could not be sent</p>
     <?php } elseif ($errors || $missing) {?>
 		<p class="warning">Please fix the item(s) indicated.</p>
@@ -74,11 +83,5 @@ if (isset($_POST['send'])) {
 	        <input type="submit" name="send" id="send" value="Send Comments">
 	    </p>
 	</form>
-	<pre>
-		<?php if ($_POST && $mailSent) {
-			echo htmlentities($message, ENT_COMPAT, 'utf-8');
-			echo 'Headers: ' . htmlentities($headers, ENT_COMPAT, 'utf-8');
-		} ?>
-	</pre>
 </body>
 </html>

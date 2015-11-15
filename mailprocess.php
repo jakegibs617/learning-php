@@ -37,8 +37,6 @@ if (!$suspect && !empty($email)) {
 	}
 }
 
-
-//below for testing
 if (!$suspect && !$missing && !$errors) {
 	$message = '';
 	foreach ($expected as $item) {
@@ -55,5 +53,8 @@ if (!$suspect && !$missing && !$errors) {
 	}
 	$message = wordwrap($message, 70);
 	
-	$mailSent = true;
+	$mailSent = mail($to, $subject, $message, $headers, $authenticate);	
+	if (!$mailSent) {
+		$errors['mailfail'] = true;
+	}
 }
