@@ -7,7 +7,7 @@ if (isset($_POST['send'])) {
 	$expected = array('name', 'email', 'comments');
 	$required = array('name', 'comments', 'email');
 	$headers = "From: webmaster@example.com\r\n";
-	$headers = "Contnet-type: text/plain; charset-utf-8";
+	$headers = "Content-type: text/plain; charset-utf-8";
 
 //check with hosting platform to see if this line below is needed
 	// $authenticate = '-femail@email.com';
