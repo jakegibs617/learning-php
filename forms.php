@@ -4,8 +4,15 @@ $missing = array();
 if (isset($_POST['send'])) {
 	$to = 'email@example.com';
 	$subject = 'Feedback from contact form';
-	$expected = array('name', 'email', 'comments', 'gender', 'terms');
+	$expected = array('name', 'email', 'comments', 'gender', 'terms', 'extras');
 	$required = array('name', 'email', 'comments', 'gender', 'terms');
+	if (!isset($_POST['extras'])) {
+		$_POST['extras'] = array();
+	}
+	$minimumChecked = 2;
+	if (count($_POST['extras']) < $minimumChecked) {
+		$errors['extras'] = true;
+	}
 	if (!isset($_POST['terms'])) {
 		$_POST['terms'] = '';
 		$errors['terms'] = true;
@@ -126,6 +133,42 @@ if (isset($_POST['send'])) {
   	  <?php }?>
       </label>
     </p>
+
+     <fieldset><legend>Optional Extras: <?php if (isset($errors['extras'])) { ?>
+    <span class="warning">Please select at least <?php echo $minimumChecked; ?></span>
+    <?php } ?>
+    </legend><p>
+      
+        <input type="checkbox" name="extras[]" value="sun roof" id="extras_0"
+        <?php
+		if ($_POST && in_array('sun roof', $extras)) {
+			echo 'checked';
+		}
+		?>
+        >
+      <label for="extras_0">Sun roof</label>
+      <br>
+      
+        <input type="checkbox" name="extras[]" value="aircon" id="extras_1"
+        <?php
+		if ($_POST && in_array('aircon', $extras)) {
+			echo 'checked';
+		}
+		?>
+        >
+      <label for="extras_1">Air conditioning</label>
+      <br>
+      
+        <input type="checkbox" name="extras[]" value="automatic" id="extras_2"
+        <?php
+		if ($_POST && in_array('automatic', $extras)) {
+			echo 'checked';
+		}
+		?>
+        >
+      <label for="extras_2"> Automatic transmission</label>
+    </p></fieldset>
+
     <p>
         <input type="submit" name="send" id="send" value="Send Comments">
     </p>
