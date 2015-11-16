@@ -18,5 +18,4 @@ recommended text editors for learning would be dreamweaver in adobe's collection
 
 in this repo the basics are discussed then the basic form is built
 
-![app](http://i.imgur.com/AiVB2nY.png)
-![app2](http://i.imgur.com/8fFHjoq.png)
+![app2](http://i.imgur.com/9wRRWuf.png)
